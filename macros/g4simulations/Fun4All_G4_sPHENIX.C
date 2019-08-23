@@ -41,7 +41,9 @@ int Fun4All_G4_sPHENIX(
     const int nEvents = 1,
     const char *inputFile = "/sphenix/data/data02/review_2017-08-02/single_particle/spacal2d/fieldmap/G4Hits_sPHENIX_e-_eta0_8GeV-0002.root",
     const char *outputFile = "G4sPHENIX.root",
-    const char *embed_input_file = "/sphenix/data/data02/review_2017-08-02/sHijing/fm_0-4.list")
+    const char *embed_input_file = "/sphenix/data/data02/review_2017-08-02/sHijing/fm_0-4.list",
+    const int zsADCThresh = 16,
+    const bool inner_hcal_material_Al = true)
 {
 
   //===============
@@ -338,10 +340,10 @@ int Fun4All_G4_sPHENIX(
 
 #if ROOT_VERSION_CODE >= ROOT_VERSION(6,00,0)
     G4Setup(absorberactive, magfield, EDecayType::kAll,
-            do_tracking, do_pstof, do_cemc, do_hcalin, do_magnet, do_hcalout, do_pipe,do_plugdoor, magfield_rescale);
+            do_tracking, do_pstof, do_cemc, do_hcalin, do_magnet, do_hcalout, do_pipe,do_plugdoor, magfield_rescale, inner_hcal_material_Al);
 #else
     G4Setup(absorberactive, magfield, TPythia6Decayer::kAll,
-            do_tracking, do_pstof, do_cemc, do_hcalin, do_magnet, do_hcalout, do_pipe,do_plugdoor, magfield_rescale);
+            do_tracking, do_pstof, do_cemc, do_hcalin, do_magnet, do_hcalout, do_pipe,do_plugdoor, magfield_rescale, inner_hcal_material_Al);
 #endif
   }
 
@@ -371,14 +373,14 @@ int Fun4All_G4_sPHENIX(
   // CEMC towering and clustering
   //-----------------------------
 
-  if (do_cemc_twr) CEMC_Towers();
+  if (do_cemc_twr) CEMC_Towers(zsADCThresh);
   if (do_cemc_cluster) CEMC_Clusters();
 
   //-----------------------------
   // HCAL towering and clustering
   //-----------------------------
 
-  if (do_hcalin_twr) HCALInner_Towers();
+  if (do_hcalin_twr) HCALInner_Towers(inner_hcal_material_Al);
   if (do_hcalin_cluster) HCALInner_Clusters();
 
   if (do_hcalout_twr) HCALOuter_Towers();
