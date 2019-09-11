@@ -64,6 +64,7 @@ double HCalInner(PHG4Reco* g4Reco,
   PHG4InnerHcalSubsystem *hcal = new PHG4InnerHcalSubsystem("HCALIN");
   // these are the parameters you can change with their default settings
   // hcal->set_string_param("material","SS310");
+<<<<<<< HEAD
   if(inner_hcal_material_Al){
     std::cout << "HCalInner - construct inner HCal absorber with G4_Al" << std::endl;
     hcal->set_string_param("material", "G4_Al");
@@ -71,6 +72,17 @@ double HCalInner(PHG4Reco* g4Reco,
   else{
     std::cout << "HCalInner - construct inner HCal absorber with SS310" << std::endl;
     hcal->set_string_param("material", "SS310");
+=======
+  if(inner_hcal_material_Al)
+  {
+    cout <<"HCalInner - construct inner HCal absorber with G4_Al"<<endl;
+    hcal->set_string_param("material","G4_Al");
+  }
+  else
+  {
+    cout <<"HCalInner - construct inner HCal absorber with SS310"<<endl;
+    hcal->set_string_param("material","SS310");
+>>>>>>> set material to SS310 if Al is set to false
   }
   // hcal->set_double_param("inner_radius", 117.27);
   //-----------------------------------------
