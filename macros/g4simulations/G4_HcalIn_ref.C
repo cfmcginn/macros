@@ -24,7 +24,8 @@ R__LOAD_LIBRARY(libg4eval.so)
 //Inner HCal absorber material selector:
 //false - old version, absorber material is SS310
 //true - default Choose if you want Aluminum
-const bool inner_hcal_material_Al = true;
+//Previous method of setting as global variable overwritten to be instead command line configurable
+//const bool inner_hcal_material_Al = true;
 
 static int inner_hcal_eic = 0;
 
@@ -54,6 +55,7 @@ double HCalInner(PHG4Reco* g4Reco,
 		 double radius,
 		 const int crossings,
 		 const int absorberactive = 0,
+		 const bool inner_hcal_material_Al = true,
 		 int verbosity = 0) {
   // all sizes are in cm!  
 
@@ -192,7 +194,7 @@ void HCALInner_Cells(int verbosity = 0) {
   return;  
 }
 
-void HCALInner_Towers(int verbosity = 0) {
+void HCALInner_Towers(const bool inner_hcal_material_Al = true, int verbosity = 0) {
 
   gSystem->Load("libg4calo.so");
   gSystem->Load("libcalo_reco.so");

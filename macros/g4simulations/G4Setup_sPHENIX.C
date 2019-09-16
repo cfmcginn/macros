@@ -38,8 +38,7 @@ void G4Init(const bool do_tracking = true,
 	    const bool do_magnet = true,
 	    const bool do_hcalout = true,
 	    const bool do_pipe = true,
-	    const bool do_plugdoor = false
-	    )
+	    const bool do_plugdoor = false)
   {
 
   // load detector/material macros and execute Init() function
@@ -108,7 +107,8 @@ int G4Setup(const int absorberactive = 0,
       const bool do_pipe = true,
       const bool do_plugdoor = false,
 //	    const bool do_plugdoor = true,
-	    const float magfield_rescale = 1.0) {
+	    const float magfield_rescale = 1.0,
+	    const bool inner_hcal_material_Al = true) {
   
   //---------------
   // Load libraries
@@ -180,7 +180,7 @@ int G4Setup(const int absorberactive = 0,
   //----------------------------------------
   // HCALIN
   
-  if (do_hcalin) radius = HCalInner(g4Reco, radius, 4, absorberactive);
+  if (do_hcalin) radius = HCalInner(g4Reco, radius, 4, absorberactive, inner_hcal_material_Al);
 
   //----------------------------------------
   // MAGNET

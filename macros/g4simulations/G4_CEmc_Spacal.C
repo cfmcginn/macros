@@ -321,7 +321,7 @@ void CEMC_Cells(int verbosity = 0)
   return;
 }
 
-void CEMC_Towers(int verbosity = 0)
+void CEMC_Towers(int zsADCThresh = 16, int verbosity = 0)
 {
   gSystem->Load("libg4calo.so");
   gSystem->Load("libcalo_reco.so");
@@ -364,7 +364,7 @@ void CEMC_Towers(int verbosity = 0)
   TowerDigitizer->set_pedstal_width_ADC(8);  // eRD1 test beam setting
   TowerDigitizer->set_photonelec_ADC(1);     //not simulating ADC discretization error
   TowerDigitizer->set_photonelec_yield_visible_GeV(photoelectron_per_GeV / sampling_fraction);
-  TowerDigitizer->set_zero_suppression_ADC(16);  // eRD1 test beam setting
+  TowerDigitizer->set_zero_suppression_ADC(zsADCThresh);  // eRD1 test beam setting
   se->registerSubsystem(TowerDigitizer);
 
   if (Cemc_spacal_configuration == PHG4CylinderGeom_Spacalv1::k1DProjectiveSpacal)
