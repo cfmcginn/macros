@@ -194,8 +194,8 @@ void HCALInner_Cells(int verbosity = 0) {
   return;  
 }
 
-void HCALInner_Towers(const bool inner_hcal_material_Al = true, int verbosity = 0) {
-
+void HCALInner_Towers(const bool inner_hcal_material_Al = true, const double zsADCThresh = -0, int verbosity = 0)
+{
   gSystem->Load("libg4calo.so");
   gSystem->Load("libcalo_reco.so");
   Fun4AllServer *se = Fun4AllServer::instance();
@@ -216,7 +216,7 @@ void HCALInner_Towers(const bool inner_hcal_material_Al = true, int verbosity = 
   TowerDigitizer->set_pedstal_width_ADC(1); // From Jin's guess. No EMCal High Gain data yet! TODO: update
   TowerDigitizer->set_photonelec_ADC(32. / 5.);
   TowerDigitizer->set_photonelec_yield_visible_GeV(32. / 5 / (0.4e-3));
-  TowerDigitizer->set_zero_suppression_ADC(-0); // no-zero suppression
+  TowerDigitizer->set_zero_suppression_ADC(zsADCThresh); // no-zero suppression
   se->registerSubsystem(TowerDigitizer);
 
   //Default sampling fraction for SS310
